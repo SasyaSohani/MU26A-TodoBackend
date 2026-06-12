@@ -1,14 +1,16 @@
 import express from "express"
 import mongoose from "mongoose"
 import cors from "cors"
+import dotenv from "dotenv"
 
+dotenv.config()
 const app = express()
-
+const PORT = process.env.PORT || 5003
 app.use(express.json())
 app.use(cors())
 
-mongoose.connect("mongodb://localhost:27017/tasksDB").then(()=>{
-    app.listen(5003, () => console.log("Server Started"))
+mongoose.connect(process.env.MONGO_URI).then(()=>{
+    app.listen(PORT, () => console.log("Server Started"))
 })
 
 const taskSchema = mongoose.Schema({
